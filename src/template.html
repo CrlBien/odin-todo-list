@@ -3,146 +3,151 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quest</title>
+
+    <!-- Font Awesome (for icons) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <title>Quest</title>
   </head>
-  <body class="flex min-h-screen bg-gray-100 text-gray-800">
+  <body class="min-h-screen flex bg-gray-100 text-gray-800">
     <!-- Sidebar -->
     <nav
-      class="w-80 bg-white shadow-lg flex flex-col justify-between font-semibold"
+      id="sidebar"
+      class="fixed md:static top-0 left-0 h-screen w-72 md:w-80 bg-white shadow-lg flex flex-col justify-between font-semibold transform -translate-x-full md:translate-x-0 transition-transform duration-300 z-50"
     >
-      <div>
-        <div class="flex items-center gap-3 p-6 border-b border-gray-200">
-          <div class="text-3xl">📜</div>
-          <h1 class="text-xl font-bold tracking-wide">Quest</h1>
+      <div class="flex flex-col h-full">
+        <!-- Logo and Website Name -->
+        <div
+          class="flex items-center justify-between p-6 border-b border-gray-200"
+        >
+          <div class="flex items-center gap-3">
+            <div class="text-3xl">📜</div>
+            <h1 class="text-xl font-bold tracking-wide">Quest</h1>
+          </div>
+          <!-- Close button (mobile only) -->
+          <button
+            id="closeSidebar"
+            class="text-2xl md:hidden hover:text-red-600"
+          >
+            &times;
+          </button>
         </div>
 
-        <ul class="p-4 space-y-2">
-          <li>
-            <button
-              id="home-btn"
-              class="w-full text-left flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-lg"
-            >
-              <div>📋</div>
-              <span>Todo</span>
-            </button>
+        <!-- Navigation Links -->
+        <ul class="p-4 space-y-2 flex-1 overflow-y-auto">
+          <li
+            class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 cursor-pointer"
+            data-tab="todo"
+          >
+            <div>🏠</div>
+            <span>Todo</span>
           </li>
-          <li>
-            <button
-              id="today-btn"
-              class="w-full text-left flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-lg"
-            >
-              <div>⭐</div>
-              <span>Today</span>
-            </button>
+          <li
+            class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 cursor-pointer"
+            data-tab="today"
+          >
+            <div>⭐</div>
+            <span>Today</span>
           </li>
-          <li>
-            <button
-              id="notes-btn"
-              class="w-full text-left flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-lg"
-            >
-              <div>📒</div>
-              <span>Notes</span>
-            </button>
+          <li
+            class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 cursor-pointer"
+            data-tab="projects"
+          >
+            <div>📚</div>
+            <span>Projects</span>
           </li>
-          <li>
-            <button
-              id="projects-btn"
-              class="w-full text-left flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 text-lg"
-            >
-              <div>📚</div>
-              <span>Projects</span>
-            </button>
+          <li
+            class="nav-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 cursor-pointer"
+            data-tab="notes"
+          >
+            <div>📒</div>
+            <span>Notes</span>
           </li>
         </ul>
-      </div>
 
-      <div class="p-4 border-t border-gray-200 text-sm text-gray-500">
-        © 2025 Quest
+        <!-- Footer -->
+        <div class="p-4 border-t border-gray-200 text-sm text-gray-500">
+          © 2025 Quest
+        </div>
       </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="flex-1 p-8">
-      <h2 id="tab-title" class="text-2xl font-semibold mb-4">
-        Welcome to Quest
-      </h2>
-
-      <!-- Todo Section -->
-      <section id="todo-section" class="hidden">
-        <form id="todo-form" class="flex flex-col gap-3 max-w-md">
-          <input
-            id="todo-title"
-            type="text"
-            placeholder="Title"
-            class="border p-2 rounded"
-            required
-          />
-          <textarea
-            id="todo-description"
-            placeholder="Description"
-            class="border p-2 rounded"
-          ></textarea>
-          <input id="todo-date" type="date" class="border p-2 rounded" />
-          <select id="todo-priority" class="border p-2 rounded">
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
+    <!-- Main Content Wrapper -->
+    <div class="flex-1 flex flex-col w-full">
+      <!-- Mobile Header -->
+      <header
+        class="flex items-center justify-between bg-white shadow-sm p-4 md:hidden"
+      >
+        <div class="flex items-center gap-3">
           <button
-            type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            id="hamburgerBtn"
+            class="text-2xl cursor-pointer hover:text-blue-500"
           >
-            Add Todo
+            ☰
           </button>
-        </form>
-        <ul id="todo-list" class="mt-6 space-y-2"></ul>
-      </section>
+        </div>
+        <div class="w-8"></div>
+      </header>
 
-      <!-- Notes Section -->
-      <section id="notes-section" class="hidden">
-        <form id="notes-form" class="flex gap-2 mb-4">
-          <input
-            id="note-text"
-            type="text"
-            placeholder="Write a note..."
-            class="border p-2 flex-1 rounded"
-            required
-          />
-          <button
-            type="submit"
-            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-          >
-            Add Note
-          </button>
-        </form>
-        <ul id="notes-list" class="space-y-2"></ul>
-      </section>
+      <!-- Main Content -->
+      <main class="flex-1 p-4 md:p-8 transition-all overflow-x-hidden">
+        <h2
+          id="tab-title"
+          class="text-2xl font-semibold mb-4 border-b pb-2 border-gray-300"
+        >
+          Todo
+        </h2>
 
-      <!-- Projects Section -->
-      <section id="projects-section" class="hidden">
-        <form id="project-form" class="flex gap-2 mb-4">
-          <input
-            id="project-name"
-            type="text"
-            placeholder="New project name..."
-            class="border p-2 flex-1 rounded"
-            required
-          />
-          <button
-            type="submit"
-            class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
-          >
-            Add Project
-          </button>
-        </form>
-        <ul id="projects-list" class="space-y-2"></ul>
-      </section>
-    </main>
+        <!-- Your content sections -->
+        <section id="todo-section">
+          <ul id="todo-list" class="space-y-3"></ul>
+        </section>
 
-    <script type="module" src="./index.js"></script>
+        <section id="today-section" class="hidden">
+          <ul id="today-list" class="space-y-3"></ul>
+        </section>
+
+        <section id="projects-section" class="hidden">
+          <ul id="projects-list" class="space-y-3"></ul>
+        </section>
+
+        <section id="notes-section" class="hidden">
+          <ul id="notes-list" class="space-y-3"></ul>
+        </section>
+      </main>
+    </div>
+
+    <!-- Sidebar Toggle Script -->
+    <script>
+      const sidebar = document.getElementById("sidebar");
+      const hamburger = document.getElementById("hamburgerBtn");
+      const closeSidebar = document.getElementById("closeSidebar");
+
+      hamburger.addEventListener("click", () => {
+        sidebar.classList.remove("-translate-x-full");
+      });
+
+      closeSidebar.addEventListener("click", () => {
+        sidebar.classList.add("-translate-x-full");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (
+          !sidebar.contains(e.target) &&
+          !hamburger.contains(e.target) &&
+          window.innerWidth < 768
+        ) {
+          sidebar.classList.add("-translate-x-full");
+        }
+      });
+
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 768) {
+          sidebar.classList.remove("-translate-x-full");
+        }
+      });
+    </script>
   </body>
 </html>
