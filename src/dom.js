@@ -605,9 +605,8 @@ function openTodoModal({ folderProjectId = null, editTodo = null } = {}) {
         }
       } else {
         if (folderProjectIdValid(folderProjectId)) {
-          // create a root todo and add to project: we'll create a new todo via TodoManager and then move it (or directly push)
-          const newTodo = TodoManager.add(t, d, due, selected); // adds to root
-          // remove from root and add to project instead (to keep consistent)
+          const newTodo = TodoManager.add(t, d, due, selected);
+          // remove from root and add to project instead
           TodoManager.removeById(newTodo.id);
           ProjectManager.addTodoToProject(folderProjectId, newTodo);
         } else {
