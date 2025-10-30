@@ -102,9 +102,6 @@ const Storage = {
         return project;
       });
     }
-
-    this.saveProjects(projects);
-    return projects;
   },
 };
 

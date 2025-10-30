@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/CrlBien/odin-todo-list/issues"
   },
-  "homepage": "https://github.com/CrlBien/odin-todo-list#readme",
+  "homepage": "https://github.com/CrlBien/odin-todo-list",
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.16",
     "autoprefixer": "^10.4.21",
@@ -30,6 +30,7 @@
     "gh-pages": "^6.3.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.4",
+    "mini-css-extract-plugin": "^2.9.4",
     "postcss-loader": "^8.2.0",
     "style-loader": "^4.0.0",
     "tailwindcss": "^4.1.16",
